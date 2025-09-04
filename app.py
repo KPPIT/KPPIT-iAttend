@@ -1,23 +1,9 @@
 import streamlit as st 
 from PIL import Image 
 from utils import load_image, gap
-from db import get_connection   # <-- use your db.py connection
+from db import check_staff   # <-- use your db.py connection
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered")
-
-# --- Function to validate staff ID ---
-def check_staff(staff_id):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time "
-        "FROM union_member WHERE staff_id = %s", 
-        (staff_id,)
-    )
-    row = cur.fetchone()
-    cur.close()
-    conn.close()
-    return row
 
 # --- UI ---
 img = load_image("kppit.png")
@@ -41,11 +27,11 @@ with col2:
 
         # If empty input
         if x.strip() == "":
-            st.session_state["error_msg"] = "Sila masukkan staff ID anda."
+            st.warning("Sila masukkan staff ID anda.")
 
         # If contains non-digit characters
         elif not x.isdigit():  
-            st.session_state["error_msg"] = "Staff ID hanya boleh mengandungi nombor."
+            st.warning("Staff ID hanya boleh mengandungi nombor.")
 
         else:
             # --- Check DB for staff ---
@@ -63,7 +49,7 @@ with col2:
                 st.switch_page("pages/2_pengesahan.py")
 
             else:
-                st.session_state["error_msg"] = "Maaf, nama anda tidak tersenarai sebagai ahli berdaftar."
+                st.warning("Maaf, nama anda tidak tersenarai sebagai ahli berdaftar.")
 
 # --- Show error inline ---
 if "error_msg" in st.session_state:
