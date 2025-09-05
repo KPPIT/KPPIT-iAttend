@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 
 # Function to create spacing
-def gap(lines: int = 1):
+def spacing_placeholder(lines: int = 1):
     for _ in range(lines):
         st.write("")
 
