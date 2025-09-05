@@ -2,7 +2,7 @@ import streamlit as st
 import psycopg2
 import pandas as pd
 from db import get_connection
-from utils import gap
+from utils import spacing_placeholder
 
 st.set_page_config(page_title="Data Viewer", page_icon="📊", layout="wide")
 
@@ -35,7 +35,7 @@ if "attendance" in df.columns:
 else:
     st.warning("⚠️ Attendance column not found in database.")
 
-gap(3)
+spacing_placeholder(3)
 
 # --- Staff Selector ---
 staff_id_selector = st.selectbox("Select Staff", options=df['staff_id'].to_list())

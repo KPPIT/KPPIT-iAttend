@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime
-from utils import gap
+from utils import spacing_placeholder
 from db import get_connection  
 
 st.set_page_config(page_title="Pengesahan", page_icon="📄", layout="centered")
@@ -21,7 +21,7 @@ st.text_input("Staff ID", staff_id, disabled=True)
 st.text_input("Nama", staff_name, disabled=True)
 st.text_input("Company", company_name, disabled=True)
 st.text_input("Unit", organizational_unit, disabled=True)
-gap(1)
+spacing_placeholder(1)
 
 # Case 1: Already checked in (previously or session state)
 if attendance == "Yes" or checked_in:

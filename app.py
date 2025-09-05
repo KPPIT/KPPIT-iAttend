@@ -1,6 +1,6 @@
 import streamlit as st 
 from PIL import Image 
-from utils import load_image, gap
+from utils import load_image, spacing_placeholder
 from db import check_staff   # <-- use your db.py connection
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered")
@@ -10,32 +10,37 @@ img = load_image("kppit.png")
 if img:
     st.image(img, use_container_width=True)
 
-gap(2)
+spacing_placeholder(2)
+
 st.header("Majlis Mesyuarat Agung KPPIT 2025")
-gap(2)
 
-x = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
-st.caption("Nota penting: \n - Majlis ini hanya terbuka kepada ahli berdaftar sahaja \n "
-"- Pastikan staff ID yang dimasukkan adalah betul dan lengkap\n "
-"- Staff ID hanya mengandungi nombor sahaja \n - Contoh: 12345678")
+spacing_placeholder(2)
 
-gap(1)
+input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
+
+st.caption( "Nota penting: \n "
+            "- Majlis ini hanya terbuka kepada ahli berdaftar sahaja \n "
+            "- Pastikan staff ID yang dimasukkan adalah betul dan lengkap\n "
+            "- Staff ID hanya mengandungi nombor sahaja \n - Contoh: 12345678"
+            )
+
+spacing_placeholder(1)
 
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
     if st.button("CEK", use_container_width=True):
 
         # If empty input
-        if x.strip() == "":
-            st.warning("Sila masukkan staff ID anda.")
+        if input_staff_id.strip() == "":
+            st.toast("Sila masukkan staff ID anda.")
 
         # If contains non-digit characters
-        elif not x.isdigit():  
-            st.warning("Staff ID hanya boleh mengandungi nombor.")
+        elif not input_staff_id.isdigit():  
+            st.toast("Staff ID hanya boleh mengandungi nombor.")
 
         else:
             # --- Check DB for staff ---
-            staff = check_staff(x)
+            staff = check_staff(input_staff_id)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
@@ -51,7 +56,7 @@ with col2:
             else:
                 st.warning("Maaf, nama anda tidak tersenarai sebagai ahli berdaftar.")
 
-# --- Show error inline ---
-if "error_msg" in st.session_state:
-    st.error(st.session_state["error_msg"])
+# # --- Show error inline ---
+# if "error_msg" in st.session_state:
+#     st.error(st.session_state["error_msg"])
 
