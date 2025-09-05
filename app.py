@@ -14,11 +14,7 @@ if img:
 spacing_placeholder(2)
 
 st.header("Majlis Mesyuarat Agung KPPIT 2025")
-
-spacing_placeholder(2)
-
 input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
-
 st.caption( "Nota penting: \n "
             "- Majlis ini hanya terbuka kepada ahli berdaftar sahaja \n "
             "- Pastikan staff ID yang dimasukkan adalah betul dan lengkap\n "
@@ -29,7 +25,7 @@ spacing_placeholder(1)
 
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
-    if st.button("CEK", use_container_width=True):
+    if st.button("CHECK STAFF ID", use_container_width=True):
 
         # If empty input
         if input_staff_id.strip() == "":
