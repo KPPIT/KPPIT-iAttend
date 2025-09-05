@@ -2,8 +2,9 @@ import streamlit as st
 from PIL import Image 
 from utils import load_image, spacing_placeholder
 from db import check_staff   # <-- use your db.py connection
+from pengesahan import confirmation
 
-st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered")
+st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
 # --- UI ---
 img = load_image("kppit.png")
@@ -50,13 +51,8 @@ with col2:
                 st.session_state["attendance"] = staff[4]
                 st.session_state["timestamp"] = staff[5].strftime("%Y-%m-%d %H:%M:%S") if staff[5] else None
 
-                # If valid staff → go pengesahan
-                st.switch_page("pages/2_pengesahan.py")
+                # Open small dialog to check in / check done check in
+                confirmation()
 
             else:
-                st.warning("Maaf, nama anda tidak tersenarai sebagai ahli berdaftar.")
-
-# # --- Show error inline ---
-# if "error_msg" in st.session_state:
-#     st.error(st.session_state["error_msg"])
-
+                st.toast("Maaf, nama anda tidak tersenarai sebagai ahli berdaftar.", )
