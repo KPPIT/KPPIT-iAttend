@@ -14,7 +14,7 @@ def show_success_msg(success_msg, staff_id, staff_name, company_name, organizati
             f"\n\nPastikan anda **SNAPSHOOT** laman web ini."
             f"\n\nSila lapor diri di kaunter pendaftaran bersama **SNAPSHOOT** laman web ini. Terima kasih."
         )
-
+# add streamlit dialog
 @st.dialog("Pengesahan Kehadiran")
 
 def confirmation():
