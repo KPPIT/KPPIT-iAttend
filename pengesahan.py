@@ -75,7 +75,7 @@ def confirmation():
 
             col1, col2, col3 = st.columns([3, 2, 3])
             with col2:
-                checkin_clicked = st.button("CHECK-IN", use_container_width=True)
+                checkin_clicked = st.button("CHECK-IN", width='stretch')
 
         if checkin_clicked:
             if not staff_id:
