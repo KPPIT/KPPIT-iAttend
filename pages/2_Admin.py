@@ -5,7 +5,7 @@ from db import get_connection
 from utils import spacing_placeholder
 from pagar import main
 
-st.set_page_config(page_title="Data Viewer", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Admin | iAttend", page_icon="🌐", layout="wide")
 
 if st.session_state.get("logged_in", False):
 
@@ -22,7 +22,7 @@ if st.session_state.get("logged_in", False):
     df = pd.DataFrame(data, columns=columns)
 
     # --- Show all data ---
-    st.header("Union Members Data")
+    st.header("Senarai Ahli Union")
     st.dataframe(df)
 
     # --- Attendance count ---
@@ -30,18 +30,18 @@ if st.session_state.get("logged_in", False):
         total_attendance = df[df["attendance"] == "Yes"].shape[0]
         total_members = df.shape[0]
 
-        st.markdown(f"***Total attendance: {total_attendance} / {total_members} orang***")
+        st.markdown(f"***Jumlah Kehadiran: {total_attendance} / {total_members} orang***")
 
         if total_members > 0:
             percentage = (total_attendance / total_members) * 100
-            st.markdown(f"***Percentage: {percentage:.2f}% hadir***")
+            st.markdown(f"***Peratusan: {percentage:.2f}% hadir***")
     else:
         st.warning("⚠️ Attendance column not found in database.")
 
     spacing_placeholder(3)
 
     # --- Staff Selector ---
-    staff_id_selector = st.selectbox("Select Staff", options=df['staff_id'].to_list())
+    staff_id_selector = st.selectbox("Staff ID: ", options=df['staff_id'].to_list())
 
     # Get the selected row
     staff_row = df[df['staff_id'] == staff_id_selector].iloc[0]
