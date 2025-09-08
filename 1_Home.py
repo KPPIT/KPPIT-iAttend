@@ -17,8 +17,9 @@ st.header("Majlis Mesyuarat Agung KPPIT 2025")
 input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
 st.caption( "Nota penting: \n "
             "- Majlis ini hanya terbuka kepada ahli berdaftar sahaja \n "
-            "- Pastikan staff ID yang dimasukkan adalah betul dan lengkap\n "
-            "- Staff ID hanya mengandungi nombor sahaja \n - Contoh: 12345678"
+            "- Pastikan STAFF ID yang dimasukkan adalah betul dan lengkap\n "
+            "- STAFF ID hanya mengandungi nombor sahaja \n "
+            "- Contoh: 12345678"
             )
 
 spacing_placeholder(1)

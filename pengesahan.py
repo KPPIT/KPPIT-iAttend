@@ -5,15 +5,16 @@ from db import get_connection
 
 def show_success_msg(success_msg, staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False):
     st.success(
-            f"{success_msg}\n\n"
-            f"Nama: {staff_name if staff_name else '-'}  \n"
-            f"Staff ID: {staff_id}  \n"
-            f"Company: {company_name if company_name else '-'}  \n"
-            f"Unit of Department: {organizational_unit if organizational_unit else '-'}  \n"
-            f"Masa Check-in: {timestamp}"
-            f"\n\nPastikan anda **SNAPSHOOT** laman web ini."
-            f"\n\nSila lapor diri di kaunter pendaftaran bersama **SNAPSHOOT** laman web ini. Terima kasih."
-        )
+    f"{success_msg}\n\n"
+    f"**Nama:**\n\n{staff_name if staff_name else '-'}\n\n"
+    f"**Staff ID:**\n\n{staff_id}\n\n"
+    f"**Company:**\n\n{company_name if company_name else '-'}\n\n"
+    f"**Department:**\n\n{organizational_unit if organizational_unit else '-'}\n\n"
+    f"**Masa Check-in:**\n\n{timestamp}\n\n"
+    f"Sila lapor diri di kaunter pendaftaran bersama **SNAPSHOT** laman web ini. Terima kasih."
+)
+
+    
 # add streamlit dialog
 @st.dialog("Pengesahan Kehadiran")
 
@@ -36,16 +37,45 @@ def confirmation():
     # Case 2: Not yet checked in → show button
     else:
 
-        # Display staff info (disabled so cannot edit)
-        st.text_input("Staff ID", staff_id, disabled=True)
-        st.text_input("Nama", staff_name, disabled=True)
-        st.text_input("Company", company_name, disabled=True)
-        st.text_input("Unit", organizational_unit, disabled=True)
-        spacing_placeholder(1)
+        #Put the form inside a placeholder so we can hide it later
+        form_area = st.empty() 
 
-        col1, col2, col3 = st.columns([3, 2, 3])
-        with col2:
-            checkin_clicked = st.button("CHECK-IN", use_container_width=True)
+        with form_area.container(): 
+            
+            # Custom CSS to make rectangular boxes
+            st.markdown("""
+                <style>
+                .info-box {
+                    background-color: #f0f2f6;   /* light grey background */
+                    border: 1px solid #ccc;      /* border like text_input */
+                    padding: 8px 12px;           /* inner spacing */
+                    border-radius: 5px;          /* rounded corners */
+                    margin-bottom: 10px;         /* spacing between boxes */
+                    font-weight: bold;           /* make text bold */
+                    color: #000000;              /* black font for contrast */
+                }
+                </style>
+            """, unsafe_allow_html=True)
+
+            # Now render each info in a styled box
+            st.subheader("Staff ID")
+            st.markdown(f"<div class='info-box'>{staff_id}</div>", unsafe_allow_html=True)
+
+            st.subheader("Nama")
+            st.markdown(f"<div class='info-box'>{staff_name}</div>", unsafe_allow_html=True)
+
+            st.subheader("Company")
+            st.markdown(f"<div class='info-box'>{company_name}</div>", unsafe_allow_html=True)
+
+            st.subheader("Department")
+            st.markdown(f"<div class='info-box'>{organizational_unit}</div>", unsafe_allow_html=True)
+
+            spacing_placeholder(1)
+
+
+            col1, col2, col3 = st.columns([3, 2, 3])
+            with col2:
+                checkin_clicked = st.button("CHECK-IN", use_container_width=True)
 
         if checkin_clicked:
             if not staff_id:
@@ -56,12 +86,12 @@ def confirmation():
                 cur = conn.cursor()
 
                 # Save current timestamp
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Note: timestamp declare in GMT due to deploy in render
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Note: timestamp in GMT on Render
 
                 # Change timestamp to MYT (UTC +8:00)
                 timestamp_to_str = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
                 timestamp_to_str_MYT = timestamp_to_str + timedelta(hours=8)
-                timestamp = timestamp_to_str_MYT.strftime("%Y-%m-%d %H:%M:%S") # timestamp declare in MYT
+                timestamp = timestamp_to_str_MYT.strftime("%Y-%m-%d %H:%M:%S")  # timestamp in MYT
 
                 # Update attendance in DB
                 cur.execute(
@@ -75,5 +105,8 @@ def confirmation():
                 # Mark as checked-in in session
                 st.session_state["checked_in"] = True
                 st.session_state["attendance"] = "Yes"
+                st.session_state["timestamp"] = timestamp   
 
-                show_success_msg("✅ CHECK-IN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False)
+                # Hide the form and show only the success message 
+                form_area.empty()  
+                show_success_msg("✅ CHECK-IN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False)  
