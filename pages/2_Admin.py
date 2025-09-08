@@ -1,7 +1,7 @@
 import streamlit as st
 import psycopg2
 import pandas as pd
-from db import get_connection
+from db import get_by_query
 from utils import spacing_placeholder
 from pagar import main
 
@@ -9,16 +9,8 @@ st.set_page_config(page_title="Data Viewer", page_icon="📊", layout="wide")
 
 if st.session_state.get("logged_in", False):
 
-    # --- Connect to DB ---
-    conn = get_connection()
-    cur = conn.cursor()
-
-    # --- Fetch data ---
-    cur.execute("SELECT * FROM union_member;")
-    data = cur.fetchall()
-    columns = [desc[0] for desc in cur.description]
-
-    # --- Convert to DataFrame ---
+    # Fetch data from DB
+    data, columns = get_by_query("SELECT * FROM union_member;")
     df = pd.DataFrame(data, columns=columns)
 
     # --- Show all data ---
@@ -76,9 +68,6 @@ if st.session_state.get("logged_in", False):
         """,
         unsafe_allow_html=True
     )
-
-    cur.close()
-    conn.close()
 
 # Load login page
 main()

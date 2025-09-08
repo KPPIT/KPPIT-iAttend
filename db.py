@@ -23,3 +23,21 @@ def check_staff(staff_id):
     cur.close()
     conn.close()
     return row
+
+def get_by_query(query: str, params=None):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(query, params or ())
+
+    try:
+        data = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+    except Exception:
+        data , columns = [], []
+
+    cur.close()
+    conn.close()
+    
+    return data, columns
+
