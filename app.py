@@ -9,23 +9,47 @@ st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", in
 # --- UI ---
 img = load_image("kppit.png")
 if img:
-    st.image(img, use_container_width=True)
-
-spacing_placeholder(2)
-
-st.header("Majlis Mesyuarat Agung KPPIT 2025")
-input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
-st.caption( "Nota penting: \n "
-            "- Majlis ini hanya terbuka kepada ahli berdaftar sahaja \n "
-            "- Pastikan staff ID yang dimasukkan adalah betul dan lengkap\n "
-            "- Staff ID hanya mengandungi nombor sahaja \n - Contoh: 12345678"
-            )
+    st.image(img, width='stretch')
+            #width='content' behaves like the old use_container_width=False
+            #width='stretch' behaves like the use_container_width=True
 
 spacing_placeholder(1)
 
+st.markdown("""
+<style>
+    /* Styling for the st.text_input label and input box */
+    .stTextInput label {
+        color: #FA0505; /*Red*/
+        font-weight: bold;
+    }
+    .stTextInput div[data-testid="stTextInput"] > div > input {
+        border: 5px solid #000000;
+        border-radius: 8px;
+    }
+
+    /* Styling for st.caption */
+    div[data-testid="stCaptionContainer"] p {
+        font-size: 15px;
+        color: #FFFFFF; /* White */
+        line-height: 1.5;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# render the widgets
+input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
+
+st.caption("""Nota penting:  
+- Majlis ini hanya terbuka kepada ahli berdaftar sahaja  
+- Pastikan staff ID yang dimasukkan adalah betul dan lengkap  
+- Staff ID hanya mengandungi nombor sahaja  
+- Contoh: 12345678""")
+
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
-    if st.button("CHECK STAFF ID", use_container_width=True):
+    if st.button("CHECK STAFF ID", width='stretch'): 
+            #width='content' behaves like the old use_container_width=False
+            #width='stretch' behaves like the old use_container_width=True
 
         # If empty input
         if input_staff_id.strip() == "":
