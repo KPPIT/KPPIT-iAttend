@@ -3,7 +3,8 @@ import psycopg2
 import pandas as pd
 from db import get_by_query
 from utils import spacing_placeholder
-from pagar import main
+from pagar import main 
+
 
 st.set_page_config(page_title="Admin | iAttend", page_icon="🌐", layout="wide")
 

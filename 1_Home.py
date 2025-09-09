@@ -3,10 +3,13 @@ from PIL import Image
 from utils import load_image, spacing_placeholder
 from db import check_staff   # <-- use your db.py connection
 from pengesahan import confirmation
+from styling import set_page_style
 
+# --- UI Setup ---
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
+set_page_style()
 
-# --- UI ---
+# --- Main Page Content ---
 img = load_image("kppit.png")
 if img:
     st.image(img, width='stretch')
@@ -15,28 +18,8 @@ if img:
 
 spacing_placeholder(1)
 
-st.markdown("""
-<style>
-    /* Styling for the st.text_input label and input box */
-    .stTextInput label {
-        color: #FA0505; /*Red*/
-        font-weight: bold;
-    }
-    .stTextInput div[data-testid="stTextInput"] > div > input {
-        border: 5px solid #000000;
-        border-radius: 8px;
-    }
+st.header("Majlis KPPIT")
 
-    /* Styling for st.caption */
-    div[data-testid="stCaptionContainer"] p {
-        font-size: 15px;
-        color: #FFFFFF; /* White */
-        line-height: 1.5;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# render the widgets
 input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
 
 st.caption("""Nota penting:  
