@@ -8,10 +8,9 @@ def show_success_msg(success_msg, staff_id, staff_name, company_name, organizati
     f"{success_msg}\n\n"
     f"**Nama:**\n\n{staff_name if staff_name else '-'}\n\n"
     f"**Staff ID:**\n\n{staff_id}\n\n"
-    f"**Company:**\n\n{company_name if company_name else '-'}\n\n"
     f"**Department:**\n\n{organizational_unit if organizational_unit else '-'}\n\n"
     f"**Masa Check-in:**\n\n{timestamp}\n\n"
-    f"Sila lapor diri di kaunter pendaftaran bersama **SNAPSHOT** laman web ini. Terima kasih."
+    f"Sila lapor diri di kaunter pendaftaran bersama **ID + SNAPSHOT** page ini untuk mengambil **kupon makanan dan cabutan bertuah**. Terima kasih."
 )
 
     
@@ -49,8 +48,8 @@ def confirmation():
                     background-color: #f0f2f6;   /* light grey background */
                     border: 1px solid #ccc;      /* border like text_input */
                     padding: 8px 12px;           /* inner spacing */
-                    border-radius: 5px;          /* rounded corners */
-                    margin-bottom: 10px;         /* spacing between boxes */
+                    border-radius: 10px;          /* rounded corners */
+                    margin-bottom: 2px;         /* spacing between boxes */
                     font-weight: bold;           /* make text bold */
                     color: #000000;              /* black font for contrast */
                 }
