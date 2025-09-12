@@ -6,20 +6,22 @@ from pengesahan import confirmation
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
-# --- UI ---
+#Banner image
 img = load_image("kppit.png")
 if img:
     st.image(img, width='stretch')
             #width='content' behaves like the old use_container_width=False
             #width='stretch' behaves like the use_container_width=True
 
-spacing_placeholder(1)
+# Page header  
+st.header("Mesyuarat Agung KPPIT Kali ke-31")
 
+# Custom CSS for styling
 st.markdown("""
 <style>
     /* Styling for the st.text_input label and input box */
     .stTextInput label {
-        color: #FA0505; /*Red*/
+        color: #40E0D0; /*Bright Turqoise*/
         font-weight: bold;
     }
     .stTextInput div[data-testid="stTextInput"] > div > input {
@@ -27,27 +29,38 @@ st.markdown("""
         border-radius: 8px;
     }
 
-    /* Styling for st.caption */
-    div[data-testid="stCaptionContainer"] p {
+    /* Styling for the notes list */
+    .notes-list {
         font-size: 15px;
-        color: #FFFFFF; /* White */
+        color: rgba(255, 255, 255, 1.0); /* White with 85% opacity */
         line-height: 1.5;
+    }
+    .notes-list ul {
+        list-style-position: inside; /* Bullets inside the text block */
     }
 </style>
 """, unsafe_allow_html=True)
 
 # render the widgets
-input_staff_id = st.text_input("Sila masukkan staff ID anda untuk membuat pengesahan: ")
+input_staff_id = st.text_input("Sila masukkan staff ID anda : ")
 
-st.caption("""Nota penting:  
-- Majlis ini hanya terbuka kepada ahli berdaftar sahaja  
-- Pastikan staff ID yang dimasukkan adalah betul dan lengkap  
-- Staff ID hanya mengandungi nombor sahaja  
-- Contoh: 12345678""")
+# Nota penting
+st.markdown("""
+<div class="notes-list">
+<b>Nota penting:</b>
+<ul>
+    <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
+    <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
+    <li>Pastikan staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
+    <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
 
+# Center the button using columns
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
-    if st.button("CHECK STAFF ID", width='stretch'): 
+    if st.button("CEK ID", width='stretch'): 
             #width='content' behaves like the old use_container_width=False
             #width='stretch' behaves like the old use_container_width=True
 
