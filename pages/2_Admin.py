@@ -2,8 +2,8 @@ import streamlit as st
 import psycopg2
 import pandas as pd
 from db import get_by_query
-from utils import spacing_placeholder
 from pagar import main
+from utils import spacing_placeholder
 
 st.set_page_config(page_title="Admin | iAttend", page_icon="🌐", layout="wide")
 
@@ -30,7 +30,7 @@ if st.session_state.get("logged_in", False):
     else:
         st.warning("⚠️ Attendance column not found in database.")
 
-    spacing_placeholder(3)
+    spacing_placeholder(2)
 
     # --- Staff Selector ---
     staff_id_selector = st.selectbox("Staff ID: ", options=df['staff_id'].to_list())
@@ -68,6 +68,5 @@ if st.session_state.get("logged_in", False):
         """,
         unsafe_allow_html=True
     )
-
 # Load login page
-main()
+main ()

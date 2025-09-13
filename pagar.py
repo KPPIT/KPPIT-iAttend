@@ -9,7 +9,25 @@ def load_credentials():
 def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
+
 def main():
+
+    st.markdown("""
+<style>
+    .stButton>button {
+            background-color: #4d6d8dff;
+            color: #fff;
+            padding:10x;
+            border-radius: 8px;
+            border: #fff;
+            cursor: pointer;
+        }
+    .stButton>button:hover {
+            background-color: #71aae4;
+            }
+    </style>
+""", unsafe_allow_html=True)
+
     # Initialize session state for login status
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
@@ -28,13 +46,16 @@ def main():
             if authenticate(username, password, credentials):
                 st.session_state.logged_in = True
                 st.session_state.show_success = True
+                st.toast("Login successful!")
+                time.sleep(1)
                 st.rerun()
+                
             else:
                 st.error("Invalid username or password")
 
-    if st.session_state.logged_in:
-        if st.session_state.show_success:
-            st.toast("Login successful!")
-            time.sleep(3)
-            st.session_state.show_success = False
-            st.rerun()
+    # if st.session_state.logged_in:
+    #     if st.session_state.show_success:
+    #         st.toast("Login successful!")
+    #         time.sleep(3)
+    #         st.session_state.show_success = False
+    #         st.rerun()
