@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            padding: 10px;
+        }
+        #messageBox {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Admin Login</h2>
+        
+        <!-- Message Box -->
+        <div id="messageBox" class="hidden p-3 mb-4 rounded-lg text-center"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-semibold mb-2">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" required>
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" required>
+            </div>
+            <button type="submit" id="loginButton" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Sign In
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const messageBox = document.getElementById('messageBox');
+            const loginButton = document.getElementById('loginButton');
+
+            // Function to show a message
+            function showMessage(message, type) {
+                messageBox.textContent = message;
+                messageBox.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+                if (type === 'error') {
+                    messageBox.classList.add('bg-red-100', 'text-red-700');
+                } else if (type === 'success') {
+                    messageBox.classList.add('bg-green-100', 'text-green-700');
+                }
+                
+                // Auto-hide message after 5 seconds
+                setTimeout(() => {
+                    hideMessage();
+                }, 5000);
+            }
+
+            // Function to hide the message box
+            function hideMessage() {
+                messageBox.classList.add('hidden');
+            }
+            
+            // Function to set button state
+            function setButtonState(loading) {
+                if (loading) {
+                    loginButton.disabled = true;
+                    loginButton.innerHTML = 'Processing...';
+                    loginButton.classList.remove('hover:scale-105');
+                } else {
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = 'Sign In';
+                    loginButton.classList.add('hover:scale-105');
+                }
+            }
+
+            loginForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                hideMessage();
+                setButtonState(true);
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    showMessage('Please fill in all fields', 'error');
+                    setButtonState(false);
+                    return;
+                }
+
+                console.log("Sending login request:", username);
+                
+                try {
+                    // Send the credentials to the Streamlit parent frame
+                    window.parent.postMessage({
+                        type: 'login_request',
+                        username: username,
+                        password: password
+                    }, '*');
+                    
+                    // Set a timeout in case there's no response
+                    setTimeout(() => {
+                        if (loginButton.disabled) {
+                            setButtonState(false);
+                            showMessage('No response from server. Please try again.', 'error');
+                        }
+                    }, 3000);
+                    
+                } catch (error) {
+                    console.error("Error sending message:", error);
+                    setButtonState(false);
+                    showMessage('An error occurred. Please try again.', 'error');
+                }
+            });
+
+            // Listen for messages from the Streamlit parent frame
+            window.addEventListener('message', (event) => {
+                // Log all messages for debugging
+                console.log("Received message:", event.data);
+                
+                const message = event.data;
+                if (message.type === 'login_result') {
+                    setButtonState(false);
+                    if (message.success) {
+                        showMessage('Login successful! Redirecting...', 'success');
+                        // Small delay to show the success message before redirect
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        showMessage('Invalid username or password.', 'error');
+                    }
+                }
+            });
+            
+            // Send a test message to check if communication works
+            try {
+                window.parent.postMessage({ 
+                    type: 'test', 
+                    message: 'Login form loaded successfully' 
+                }, '*');
+            } catch (e) {
+                console.log("Test message failed:", e);
+            }
+        });
+    </script>
+</body>
+</html>
