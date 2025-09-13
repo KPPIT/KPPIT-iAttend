@@ -1,0 +1,15 @@
+Streamlit HTML Component Login Issue
+
+Problem Summary:
+The login system using Streamlit's HTML components isn't working properly. 
+The HTML login form can't successfully communicate with the Streamlit app backend, resulting in authentication failures even with correct credentials.
+
+Root Cause Analysis
+- Communication Breakdown: Streamlit's HTML components run in an iframe with strict security restrictions that prevent reliable message passing between the component and the main app.
+- Session State Mismanagement: The login data isn't being properly passed from the HTML component to Streamlit's session state.
+- Complexity Overhead: The current approach requires complex message passing that Streamlit isn't designed to handle natively.
+
+Technical Challenges
+- postMessage Limitations: The window.postMessage() API used for communication is subject to cross-origin restrictions in iframes.
+- Streamlit Architecture: Streamlit wasn't designed for bidirectional communication with embedded HTML components.
+- State Synchronization: Maintaining synchronized state between the HTML component and Streamlit's Python backend is challenging.
