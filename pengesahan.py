@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from utils import spacing_placeholder
 from db import get_connection
 
-def show_success_msg(success_msg, staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False):
+def show_success_msg(success_msg, staff_id, staff_name, company_name, organizational_unit, timestamp):
     st.success(
     f"{success_msg}\n\n"
     f"**Nama:**\n\n{staff_name if staff_name else '-'}\n\n"
@@ -26,12 +26,11 @@ def confirmation():
     organizational_unit = st.session_state.get("organizational_unit")
     attendance = st.session_state.get("attendance")
     timestamp = st.session_state.get("timestamp")
-    checked_in = st.session_state.get("checked_in", False)
 
     # Case 1: Already checked in (previously or session state)
-    if attendance == "Yes" or checked_in:
+    if attendance == "Yes":
         # Display success message
-        show_success_msg("✅ ANDA TELAH CHECK-IN !", staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False)
+        show_success_msg("✅ ANDA TELAH CHECK-IN !", staff_id, staff_name, company_name, organizational_unit, timestamp)
 
     # Case 2: Not yet checked in → show button
     else:
@@ -80,8 +79,9 @@ def confirmation():
             if not staff_id:
                 st.error("❌ Staff ID tidak dijumpai.")
             else:
-                # Connect to db
-                conn = get_connection()
+                # Connect to database connection pool
+                db_pool = get_connection()
+                conn = db_pool.getconn()
                 cur = conn.cursor()
 
                 # Save current timestamp
@@ -98,14 +98,18 @@ def confirmation():
                     ("Yes", timestamp, staff_id)
                 )
                 conn.commit()
-                cur.close()
-                conn.close()
+                print("Data added successfully")
+
+                if cur: 
+                    cur.close()
+                if conn:
+                    db_pool.putconn(conn)
+                    print("Database connection pool: Disconnected")
 
                 # Mark as checked-in in session
-                st.session_state["checked_in"] = True
                 st.session_state["attendance"] = "Yes"
                 st.session_state["timestamp"] = timestamp   
 
                 # Hide the form and show only the success message 
                 form_area.empty()  
-                show_success_msg("✅ CHECK-IN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp, checked_in=False)  
+                show_success_msg("✅ CHECK-IN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp)  
