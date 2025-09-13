@@ -28,13 +28,16 @@ def main():
             if authenticate(username, password, credentials):
                 st.session_state.logged_in = True
                 st.session_state.show_success = True
+                st.toast("Login successful!")
+                time.sleep(1)
                 st.rerun()
+                
             else:
                 st.error("Invalid username or password")
 
-    if st.session_state.logged_in:
-        if st.session_state.show_success:
-            st.toast("Login successful!")
-            time.sleep(3)
-            st.session_state.show_success = False
-            st.rerun()
+    # if st.session_state.logged_in:
+    #     if st.session_state.show_success:
+    #         st.toast("Login successful!")
+    #         time.sleep(3)
+    #         st.session_state.show_success = False
+    #         st.rerun()
