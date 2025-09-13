@@ -7,40 +7,15 @@ import pandas as pd
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
-#Banner image
-img = load_image("kppit.png")
-if img:
-    st.image(img, width='stretch')
+# Banner image
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+            st.image('KPPIT.png', width='stretch')
             #width='content' behaves like the old use_container_width=False
             #width='stretch' behaves like the use_container_width=True
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
-
-# Custom CSS for styling
-st.markdown("""
-<style>
-    /* Styling for the st.text_input label and input box */
-    .stTextInput label {
-        color: #40E0D0; /*Bright Turqoise*/
-        font-weight: bold;
-    }
-    .stTextInput div[data-testid="stTextInput"] > div > input {
-        border: 5px solid #000000;
-        border-radius: 8px;
-    }
-
-    /* Styling for the notes list */
-    .notes-list {
-        font-size: 15px;
-        color: rgba(255, 255, 255, 1.0); /* White with 85% opacity */
-        line-height: 1.5;
-    }
-    .notes-list ul {
-        list-style-position: inside; /* Bullets inside the text block */
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # render the widgets
 input_staff_id = st.text_input("Sila masukkan staff ID anda : ")
@@ -56,6 +31,22 @@ st.markdown("""
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+    .stButton>button {
+            background-color: #4d6d8dff;
+            color: #fff;
+            padding:10x;
+            border-radius: 8px;
+            border: #fff;
+            cursor: pointer;
+        }
+    .stButton>button:hover {
+            background-color: #71aae4;
+            }
+    </style>
 """, unsafe_allow_html=True)
 
 # Center the button using columns
