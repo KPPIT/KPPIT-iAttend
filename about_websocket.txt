@@ -1,0 +1,22 @@
+things need to add on requirements.txt
+- uvicorn
+- fastapi
+- websockets
+
+to install 
+- nodejs (https://nodejs.org/en/download/)
+
+# to run the server live data
+in terminal 1
+uvicorn websocket_server:app --host 0.0.0.0 --port 10000 
+
+in terminal 2
+dir : C:\KPPIT-iAttend\frontend
+npm run build
+
+in terminal 3
+streamlit run websocket_app.py
+
+SIDE NOTE: 
+- THIS MIGHT NOT WORK, NEED TO PROVIDE A WORKAROUND
+- CUSTOM JAVASCRIPT, HTML, AND NPM DO NOT SEEM TO BE FULLY COMPATIBLE WITH THE STREAMLIT FRAMEWORK

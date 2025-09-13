@@ -1,2 +1,6 @@
 /.streamlit
 /__pycache__
+/frontend/.parcel-cache
+/frontend/build
+/frontend/node_modules
+/live_component/__pycache__
