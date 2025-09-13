@@ -1,8 +1,9 @@
 import streamlit as st 
 from PIL import Image 
 from utils import load_image, spacing_placeholder
-from db import check_staff   # <-- use your db.py connection
+from db import get_by_query
 from pengesahan import confirmation
+import pandas as pd
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
@@ -74,7 +75,8 @@ with col2:
 
         else:
             # --- Check DB for staff ---
-            staff = check_staff(input_staff_id)
+            query = "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time FROM union_member WHERE staff_id = %s"
+            staff, columns = get_by_query(query=query, params=(input_staff_id,), single_row=True)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
