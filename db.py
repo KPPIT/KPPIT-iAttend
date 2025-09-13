@@ -4,6 +4,7 @@ from psycopg2 import pool
 
 db_pool = None  # to hold global connection
 
+@st.cache_resource # to cache the data connection pool once its deploy
 def get_connection():
     global db_pool
     if db_pool is None:
