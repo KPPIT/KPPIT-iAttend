@@ -9,7 +9,6 @@ def load_credentials():
 def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
-
 def main():
 
     st.markdown("""
@@ -21,10 +20,23 @@ def main():
             border-radius: 8px;
             border: #fff;
             cursor: pointer;
+            width: 100%
+            display: flex;
+            justify-content: center;
         }
     .stButton>button:hover {
             background-color: #71aae4;
-            }
+        }  
+/* Center the  st.title */
+    h1 {
+    text-align: center;
+    }
+    .stToast {
+    background-color: #6b6969ff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -51,7 +63,7 @@ def main():
                 st.rerun()
                 
             else:
-                st.error("Invalid username or password")
+                st.toast("Invalid username or password")
 
     # if st.session_state.logged_in:
     #     if st.session_state.show_success:

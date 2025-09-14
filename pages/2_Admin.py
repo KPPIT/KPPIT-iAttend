@@ -53,7 +53,7 @@ if st.session_state.get("logged_in", False):
             background-color:{card_color};  
             box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
             margin-bottom:20px;
-            font-family: Arial, sans-serif;
+            font-family: Arial, serif;
             color: white;  
         ">
             <h3 style="margin-bottom:10px; color:white;">

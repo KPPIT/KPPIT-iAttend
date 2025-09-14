@@ -7,10 +7,39 @@ import pandas as pd
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
+# --- All Custom CSS in one block ---
+st.markdown("""
+<style>
+/* Centering the image and reducing spacing */
+.stImage {
+    padding-left: 90px;
+    margin-bottom: -20px; /* Reduce space below image */
+    margin-top: -40px;
+}
+/* Style for the button */
+.stButton>button {
+    background-color: #4d6d8dff;
+    color: #fff;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: -15px;
+    margin-bottom: -45px;
+}
+.stButton>button:hover {
+    background-color: #71aae4;
+}
+/* Style for the notes list */
+.notes-list {
+    padding: 10px;
+    margin-top: -15px; /* Reduce space above notes */
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # Banner image
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-            st.image('KPPIT.png', width='stretch')
+st.image('ifx.png', width= 180)
             #width='content' behaves like the old use_container_width=False
             #width='stretch' behaves like the use_container_width=True
 
@@ -24,7 +53,7 @@ input_staff_id = st.text_input("Sila masukkan staff ID anda : ")
 st.markdown("""
 <div class="notes-list">
 <b>Nota penting:</b>
-<ul>
+<ul  style="padding-left: 20px; margin-bottom: -10px;">
     <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
     <li>Pastikan staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
@@ -35,18 +64,13 @@ st.markdown("""
 
 st.markdown("""
 <style>
-    .stButton>button {
-            background-color: #4d6d8dff;
-            color: #fff;
-            padding:10x;
-            border-radius: 8px;
-            border: #fff;
-            cursor: pointer;
-        }
-    .stButton>button:hover {
-            background-color: #71aae4;
-            }
-    </style>
+.stToast {
+    background-color: #6b6969ff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Center the button using columns
