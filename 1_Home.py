@@ -10,9 +10,9 @@ st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", in
 # Banner image
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-            st.image('KPPIT.png', width='stretch')
-            #width='content' behaves like the old use_container_width=False
-            #width='stretch' behaves like the use_container_width=True
+    st.image(load_image('KPPIT.png'), width='stretch')
+    #width='content' behaves like the old use_container_width=False
+    #width='stretch' behaves like the use_container_width=True
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
@@ -56,18 +56,21 @@ with col2:
             #width='content' behaves like the old use_container_width=False
             #width='stretch' behaves like the old use_container_width=True
 
+       # Remove spaces 
+        clean_staff_id = "".join(input_staff_id.split())
+
         # If empty input
-        if input_staff_id.strip() == "":
+        if not clean_staff_id:
             st.toast("Sila masukkan staff ID anda.")
 
         # If contains non-digit characters
-        elif not input_staff_id.isdigit():  
+        elif not clean_staff_id.isdigit():  
             st.toast("Staff ID hanya boleh mengandungi nombor.")
 
         else:
             # --- Check DB for staff ---
             query = "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time FROM union_member WHERE staff_id = %s"
-            staff, columns = get_by_query(query=query, params=(input_staff_id,), single_row=True)
+            staff, columns = get_by_query(query=query, params=(clean_staff_id,), single_row=True)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
