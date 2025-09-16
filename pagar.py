@@ -13,17 +13,27 @@ def main():
 
     st.markdown("""
     <style>
-        .stButton>button {
-                background-color: #4d6d8dff;
-                color: #fff;
-                padding:10x;
-                border-radius: 8px;
-                border: #fff;
-                cursor: pointer;
+    .stButton>button {
+        background-color: #4d6d8dff;
+        color: #fff;
+        padding: 5px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .stButton>button:hover {
+        background-color: #71aae4;
+    }
+        .stTextInput input[type="text"] {
+            background-color: #e2dadbff;
+            padding: 8px;
+            color: #043464;
+            caret-color: #043464;
             }
-        .stButton>button:hover {
-                background-color: #71aae4;
-                }
+        .stToast {
+            background-color: #e2dadbff;
+            color:#043464;
+            padding: 8px;
+            }
         </style>
     """, unsafe_allow_html=True)
 

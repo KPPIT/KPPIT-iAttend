@@ -10,9 +10,23 @@ st.markdown("""
 <style>
 /* Centering the image and reducing spacing */
 .stImage {
-    padding-left: 90px;
-    margin-bottom: -20px; /* Reduce space below image */
-    margin-top: -40px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -35px;   /* Reduce space below image */
+    margin-top: -50px;      /* Reduce space above image */
+}
+.stTextInput input[type="text"] {
+        background-color: #e2dadbff;
+        padding: 2px;
+        color: #043464;
+        caret-color: #043464;
+}
+/* Style for the notes list */
+.notes-list {
+    padding: 5px;
+    margin-top: -15px;      /* Reduce space above notes */
+    margin-bottom: -15px;   /* Reduce space below notes */
 }
 /* Style for the button */
 .stButton>button {
@@ -21,25 +35,17 @@ st.markdown("""
     padding: 5px;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: -15px;
-    margin-bottom: -45px;
 }
 .stButton>button:hover {
     background-color: #71aae4;
 }
-/* Style for the notes list */
-.notes-list {
-    padding: 10px;
-    margin-top: -15px; /* Reduce space above notes */
-}
 </style>
 """, unsafe_allow_html=True)
 
-
 # Banner image
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([3, 2, 3])
 with col2:
-    st.image(load_image('KPPIT.png'), width='stretch')
+    st.image(load_image('KPPIT.png'))
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
@@ -51,23 +57,19 @@ input_staff_id = st.text_input("Sila masukkan Staff ID anda : ")
 st.markdown("""
 <div class="notes-list">
 <b>Nota penting:</b>
-<ul  style="padding-left: 20px; margin-bottom: -10px;">
+<ul  style="font-size: 13px; padding-left: 20px; margin-bottom: -5px;">
     <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
     <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
-""", unsafe_allow_html=True)
-
-st.markdown("""
 <style>
-.stToast {
-    background-color: #6b6969ff;
-    color: #fff;
-    border-radius: 8px;
-    padding: 10px;
-}
+    .stToast {
+        background-color: #e2dadbff;
+        color:#043464;
+        padding: 8px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
