@@ -8,8 +8,8 @@ def spacing_placeholder(lines: int = 1):
         st.write("")
 
 # Function to load images from the /images folder
+@st.cache_resource
 def load_image(filename: str):  
-        
         current_dir = Path(__file__).parent   # points to /iAttend
         image_path = current_dir / "images" / filename
         return Image.open(image_path)
