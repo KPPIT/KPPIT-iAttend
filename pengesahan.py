@@ -13,6 +13,7 @@ def show_success_msg(success_msg, staff_id, staff_name, company_name, organizati
     f"**Masa Check-in:**\n\n{timestamp}\n\n"
     f"Sila lapor diri di kaunter pendaftaran bersama **ID + SNAPSHOT** page ini untuk mengambil **kupon makanan dan cabutan bertuah**. Terima kasih."
 )
+
     
 # add streamlit dialog
 @st.dialog("Pengesahan Kehadiran")
@@ -44,13 +45,13 @@ def confirmation():
             st.markdown("""
                 <style>
                 .info-box {
-                    background-color: #6b6969ff;   /* light grey background */
+                    background-color: #f0f2f6;   /* light grey background */
                     border: 1px solid #ccc;      /* border like text_input */
                     padding: 8px 12px;           /* inner spacing */
                     border-radius: 10px;          /* rounded corners */
                     margin-bottom: 2px;         /* spacing between boxes */
                     font-weight: bold;           /* make text bold */
-                    color: #fff;              /* black font for contrast */
+                    color: #000000;              /* black font for contrast */
                 }
                 </style>
             """, unsafe_allow_html=True)
@@ -69,6 +70,7 @@ def confirmation():
             st.markdown(f"<div class='info-box'>{organizational_unit}</div>", unsafe_allow_html=True)
 
             spacing_placeholder(1)
+
 
             col1, col2, col3 = st.columns([2, 3, 2])
             with col2:
