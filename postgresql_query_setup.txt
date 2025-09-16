@@ -1,0 +1,26 @@
+# Create new table
+CREATE TABLE union_members (
+    staff_id INT,
+    employee_name VARCHAR (255),
+    company_name VARCHAR (255),
+    organizational_unit VARCHAR (255),
+    attendance VARCHAR (10),
+    checkin_time TIMESTAMP
+);
+
+
+# View table
+SELECT * FROM union_members;
+
+
+# Reset all attendance
+UPDATE union_members
+SET attendance = NULL,
+    checkin_time = NULL;
+WHERE staff_id = '05XXXXXX'     // for specific id 
+
+
+# Add new data to the table 
+INSERT INTO union_members (staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time)
+VALUES 
+    (05XXXXXX, 'Ali bin Ahmad', 'IFMY .....', 'IT RDI ...', NULL, NULL);
