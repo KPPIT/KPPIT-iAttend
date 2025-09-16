@@ -1,33 +1,60 @@
 import streamlit as st 
-from PIL import Image 
-from utils import load_image, spacing_placeholder
+from utils import load_image
 from db import get_by_query
 from pengesahan import confirmation
-import pandas as pd
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
+
+# --- All Custom CSS in one block ---
+st.markdown("""
+<style>
+/* Centering the image and reducing spacing */
+.stImage {
+    padding-left: 90px;
+    margin-bottom: -20px; /* Reduce space below image */
+    margin-top: -40px;
+}
+/* Style for the button */
+.stButton>button {
+    background-color: #4d6d8dff;
+    color: #fff;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: -15px;
+    margin-bottom: -45px;
+}
+.stButton>button:hover {
+    background-color: #71aae4;
+}
+/* Style for the notes list */
+.notes-list {
+    padding: 10px;
+    margin-top: -15px; /* Reduce space above notes */
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 # Banner image
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image(load_image('KPPIT.png'), width='stretch')
-    #width='content' behaves like the old use_container_width=False
-    #width='stretch' behaves like the use_container_width=True
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
 
 # render the widgets
-input_staff_id = st.text_input("Sila masukkan staff ID anda : ")
+input_staff_id = st.text_input("Sila masukkan Staff ID anda : ")
 
 # Nota penting
 st.markdown("""
 <div class="notes-list">
 <b>Nota penting:</b>
-<ul>
+<ul  style="padding-left: 20px; margin-bottom: -10px;">
     <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
-    <li>Pastikan staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
+    <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
@@ -35,26 +62,19 @@ st.markdown("""
 
 st.markdown("""
 <style>
-    .stButton>button {
-            background-color: #4d6d8dff;
-            color: #fff;
-            padding:10x;
-            border-radius: 8px;
-            border: #fff;
-            cursor: pointer;
-        }
-    .stButton>button:hover {
-            background-color: #71aae4;
-            }
-    </style>
+.stToast {
+    background-color: #6b6969ff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Center the button using columns
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
     if st.button("CEK ID", width='stretch'): 
-            #width='content' behaves like the old use_container_width=False
-            #width='stretch' behaves like the old use_container_width=True
 
        # Remove spaces 
         clean_staff_id = "".join(input_staff_id.split())
@@ -70,7 +90,7 @@ with col2:
         else:
             # --- Check DB for staff ---
             query = "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time FROM union_member WHERE staff_id = %s"
-            staff, columns = get_by_query(query=query, params=(clean_staff_id,), single_row=True)
+            staff, _ = get_by_query(query=query, params=(clean_staff_id,), single_row=True)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
