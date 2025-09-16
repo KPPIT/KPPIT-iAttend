@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from utils import spacing_placeholder
 from db import get_connection
 
+@st.cache_resource
 def show_success_msg(success_msg, staff_id, staff_name, company_name, organizational_unit, timestamp):
     st.success(
     f"{success_msg}\n\n"

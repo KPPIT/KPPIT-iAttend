@@ -1,9 +1,7 @@
 import streamlit as st 
-from PIL import Image 
-from utils import load_image, spacing_placeholder
+from utils import load_image
 from db import get_by_query
 from pengesahan import confirmation
-import pandas as pd
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
@@ -39,15 +37,15 @@ st.markdown("""
 
 
 # Banner image
-st.image('ifx.png', width= 180)
-            #width='content' behaves like the old use_container_width=False
-            #width='stretch' behaves like the use_container_width=True
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(load_image('KPPIT.png'), width='stretch')
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
 
 # render the widgets
-input_staff_id = st.text_input("Sila masukkan staff ID anda : ")
+input_staff_id = st.text_input("Sila masukkan Staff ID anda : ")
 
 # Nota penting
 st.markdown("""
@@ -56,7 +54,7 @@ st.markdown("""
 <ul  style="padding-left: 20px; margin-bottom: -10px;">
     <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
-    <li>Pastikan staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
+    <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
@@ -77,21 +75,22 @@ st.markdown("""
 col1, col2, col3 = st.columns([3, 2, 3])  
 with col2:
     if st.button("CEK ID", width='stretch'): 
-            #width='content' behaves like the old use_container_width=False
-            #width='stretch' behaves like the old use_container_width=True
+
+       # Remove spaces 
+        clean_staff_id = "".join(input_staff_id.split())
 
         # If empty input
-        if input_staff_id.strip() == "":
+        if not clean_staff_id:
             st.toast("Sila masukkan staff ID anda.")
 
         # If contains non-digit characters
-        elif not input_staff_id.isdigit():  
+        elif not clean_staff_id.isdigit():  
             st.toast("Staff ID hanya boleh mengandungi nombor.")
 
         else:
             # --- Check DB for staff ---
             query = "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time FROM union_member WHERE staff_id = %s"
-            staff, columns = get_by_query(query=query, params=(input_staff_id,), single_row=True)
+            staff, _ = get_by_query(query=query, params=(clean_staff_id,), single_row=True)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
