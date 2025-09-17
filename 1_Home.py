@@ -5,7 +5,6 @@ from pengesahan import confirmation
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
-# --- All Custom CSS in one block ---
 st.markdown("""
 <style>
 /* Centering the image and reducing spacing */
@@ -16,30 +15,40 @@ st.markdown("""
     margin-bottom: -35px;   /* Reduce space below image */
     margin-top: -50px;      /* Reduce space above image */
 }
-.stTextInput input[type="text"] {
-        background-color: #e2dadbff;
-        padding: 2px;
-        color: #043464;
-        caret-color: #043464;
-}
-/* Style for the notes list */
-.notes-list {
-    padding: 5px;
-    margin-top: -15px;      /* Reduce space above notes */
-    margin-bottom: -15px;   /* Reduce space below notes */
-}
 /* Style for the button */
 .stButton>button {
     background-color: #4d6d8dff;
     color: #fff;
     padding: 5px;
-    border-radius: 8px;
     cursor: pointer;
+    margin-top: -15px;
+    margin-bottom: -45px;
 }
 .stButton>button:hover {
     background-color: #71aae4;
 }
-</style>
+/* Style for the notes list */
+.notes-list {
+    padding: 10px;
+    margin-top: -15px; /* Reduce space above notes */
+}
+.stToast {
+    background-color: #6b6969ff;
+    color: #fff;
+    padding: 10px;
+}
+.stTextInput input[type="text"] {
+        background-color: #e2dadbff;
+        padding: 5px;
+        color: #043464;
+        caret-color: #043464;
+}            
+    .stToast {
+        background-color: #e2dadbff;
+        color:#043464;
+        padding: 8px;
+    }            
+    </style>
 """, unsafe_allow_html=True)
 
 # Banner image
@@ -58,19 +67,12 @@ st.markdown("""
 <div class="notes-list">
 <b>Nota penting:</b>
 <ul  style="font-size: 13px; padding-left: 20px; margin-bottom: -5px;">
-    <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
+    <li>Anda wajib merekodkan kehadiran menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
     <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
-<style>
-    .stToast {
-        background-color: #e2dadbff;
-        color:#043464;
-        padding: 8px;
-    }
-</style>
 """, unsafe_allow_html=True)
 
 # Center the button using columns

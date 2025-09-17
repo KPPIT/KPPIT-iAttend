@@ -48,11 +48,20 @@ def confirmation():
                     background-color: #f0f2f6;   /* light grey background */
                     border: 1px solid #ccc;      /* border like text_input */
                     padding: 8px 12px;           /* inner spacing */
-                    border-radius: 10px;          /* rounded corners */
+                    border-radius: 8px;          /* rounded corners */
                     margin-bottom: 2px;         /* spacing between boxes */
                     font-weight: bold;           /* make text bold */
                     color: #000000;              /* black font for contrast */
                 }
+                .stButton>button {
+                    background-color: #4d6d8dff;
+                    color: #fff;
+                    padding: 5px;
+                    cursor: pointer;
+                }
+                .stButton>button:hover {
+                    background-color: #71aae4;
+                }   
                 </style>
             """, unsafe_allow_html=True)
 
@@ -74,7 +83,7 @@ def confirmation():
 
             col1, col2, col3 = st.columns([2, 3, 2])
             with col2:
-                checkin_clicked = st.button("CHECK-IN", width='stretch')
+                checkin_clicked = st.button("Daftar", width='stretch')
 
         if checkin_clicked:
             if not staff_id:
