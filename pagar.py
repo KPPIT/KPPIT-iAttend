@@ -9,6 +9,7 @@ def load_credentials():
 def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
+
 def main():
 
     st.markdown("""
