@@ -9,7 +9,6 @@ def load_credentials():
 def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
-
 def main():
 
     st.markdown("""
@@ -18,13 +17,23 @@ def main():
                 background-color: #4d6d8dff;
                 color: #fff;
                 padding:10x;
-                border-radius: 8px;
                 border: #fff;
                 cursor: pointer;
             }
         .stButton>button:hover {
                 background-color: #71aae4;
-                }
+            }
+        .stToast {
+                background-color: #e2dadbff;
+                color:#043464;
+                padding: 8px;
+            }
+        .stTextInput input[type="text"] {
+                background-color: #e2dadbff;
+                padding: 5px;
+                color: #043464;
+                caret-color: #043464;
+            } 
         </style>
     """, unsafe_allow_html=True)
 

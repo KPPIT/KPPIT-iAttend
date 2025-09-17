@@ -27,7 +27,7 @@ if st.session_state.get("logged_in", False):
     st.data_editor(df)
 
     spacing_placeholder(2)
-
+    
     # --- Staff Selector ---
     staff_id_selector = st.selectbox("Staff ID: ", options=df['staff_id'].to_list())
 
