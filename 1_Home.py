@@ -1,55 +1,12 @@
 import streamlit as st 
-from utils import load_image
+from utils import load_image, load_css, load_markdown
 from db import get_by_query
 from pengesahan import confirmation
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
-st.markdown("""
-<style>
-/* Centering the image and reducing spacing */
-.stImage {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: -35px;   /* Reduce space below image */
-    margin-top: -50px;      /* Reduce space above image */
-}
-/* Style for the button */
-.stButton>button {
-    background-color: #4d6d8dff;
-    color: #fff;
-    padding: 5px;
-    cursor: pointer;
-    margin-top: -15px;
-    margin-bottom: -45px;
-}
-.stButton>button:hover {
-    background-color: #71aae4;
-}
-/* Style for the notes list */
-.notes-list {
-    padding: 10px;
-    margin-top: -15px; /* Reduce space above notes */
-}
-.stToast {
-    background-color: #6b6969ff;
-    color: #fff;
-    padding: 10px;
-}
-.stTextInput input[type="text"] {
-        background-color: #e2dadbff;
-        padding: 5px;
-        color: #043464;
-        caret-color: #043464;
-}            
-    .stToast {
-        background-color: #e2dadbff;
-        color:#043464;
-        padding: 8px;
-    }            
-    </style>
-""", unsafe_allow_html=True)
+# Call the function to load the CSS file
+load_css("style.css")
 
 # Banner image
 col1, col2, col3 = st.columns([3, 2, 3])
@@ -62,18 +19,8 @@ st.header("Mesyuarat Agung KPPIT Kali ke-31")
 # render the widgets
 input_staff_id = st.text_input("Sila masukkan Staff ID anda : ")
 
-# Nota penting
-st.markdown("""
-<div class="notes-list">
-<b>Nota penting:</b>
-<ul  style="font-size: 13px; padding-left: 20px; margin-bottom: -5px;">
-    <li>Anda wajib merekodkan kehadiran menggunakan aplikasi ini</li>
-    <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
-    <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
-    <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
-</ul>
-</div>
-""", unsafe_allow_html=True)
+# Call the function to load the Markdown notes
+load_markdown("notes.md")
 
 # Center the button using columns
 col1, col2, col3 = st.columns([3, 2, 3])  

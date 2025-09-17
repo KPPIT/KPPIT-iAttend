@@ -1,0 +1,49 @@
+
+/* Centering the image and reducing spacing */
+    .stImage {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: -35px;   /* Reduce space below image */
+        margin-top: -50px;      /* Reduce space above image */
+    }
+/* Style for the button */
+    .stButton>button {
+        background-color: #4d6d8dff;
+        color: #fff;
+        padding: 8px;
+        cursor: pointer;
+    }
+    .stButton>button:hover {
+        background-color: #71aae4;
+    }
+/* Style for the notes list */
+    .notes-list {
+        padding: 10px;
+        margin-top: -15px; /* Reduce space above notes */
+    }
+    .stToast {
+        background-color: #e0d1d3ff;
+        color: #043464;
+        padding: 10px;
+    }
+    .stTextInput input[type="text"] {
+        background-color: #e2dadbff;
+        padding: 8px 10px;
+        color: #043464;
+        caret-color: #043464;
+    }            
+    .stToast {
+        background-color: #e2dadbff;
+        color:#043464;
+        padding: 8px;
+    }
+    .info-box {
+        background-color: #f0f2f6;   /* light grey background */
+        border: 1px solid #ccc;      /* border like text_input */
+        padding: 8px 12px;           /* inner spacing */
+        border-radius: 8px;          /* rounded corners */
+        margin-bottom: 2px;         /* spacing between boxes */
+        font-weight: bold;           /* make text bold */
+        color: #000000;              /* black font for contrast */
+    }
