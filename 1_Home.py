@@ -5,10 +5,47 @@ from pengesahan import confirmation
 
 st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", initial_sidebar_state="collapsed")
 
+# --- All Custom CSS in one block ---
+st.markdown("""
+<style>
+/* Centering the image and reducing spacing */
+.stImage {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -35px;   /* Reduce space below image */
+    margin-top: -50px;      /* Reduce space above image */
+}
+.stTextInput input[type="text"] {
+        background-color: #e2dadbff;
+        padding: 2px;
+        color: #043464;
+        caret-color: #043464;
+}
+/* Style for the notes list */
+.notes-list {
+    padding: 5px;
+    margin-top: -15px;      /* Reduce space above notes */
+    margin-bottom: -15px;   /* Reduce space below notes */
+}
+/* Style for the button */
+.stButton>button {
+    background-color: #4d6d8dff;
+    color: #fff;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.stButton>button:hover {
+    background-color: #71aae4;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Banner image
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([3, 2, 3])
 with col2:
-    st.image(load_image('KPPIT.png'), width='stretch')
+    st.image(load_image('KPPIT.png'))
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
@@ -20,29 +57,20 @@ input_staff_id = st.text_input("Sila masukkan Staff ID anda : ")
 st.markdown("""
 <div class="notes-list">
 <b>Nota penting:</b>
-<ul>
+<ul  style="font-size: 13px; padding-left: 20px; margin-bottom: -5px;">
     <li>Anda wajib merekodkan kehadiran anda menggunakan aplikasi ini</li>
     <li>Majlis ini hanya terbuka kepada ahli KPPIT (Ogos) sahaja</li>
     <li>Pastikan Staff ID yang dimasukkan adalah sama seperti yang tertera pada batch pekerja anda</li>
     <li>Contoh: <i>05XXXXXX / 30XXXXXX</i> </li>
 </ul>
 </div>
-""", unsafe_allow_html=True)
-
-st.markdown("""
 <style>
-    .stButton>button {
-            background-color: #4d6d8dff;
-            color: #fff;
-            padding:10x;
-            border-radius: 8px;
-            border: #fff;
-            cursor: pointer;
-        }
-    .stButton>button:hover {
-            background-color: #71aae4;
-            }
-    </style>
+    .stToast {
+        background-color: #e2dadbff;
+        color:#043464;
+        padding: 8px;
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # Center the button using columns
