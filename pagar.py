@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+from utils import load_css
 
 # Load user credentials from secrets
 def load_credentials():
@@ -10,32 +11,8 @@ def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
 def main():
-
-    st.markdown("""
-    <style>
-    .stButton>button {
-        background-color: #4d6d8dff;
-        color: #fff;
-        padding: 5px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    .stButton>button:hover {
-        background-color: #71aae4;
-    }
-        .stTextInput input[type="text"] {
-            background-color: #e2dadbff;
-            padding: 8px;
-            color: #043464;
-            caret-color: #043464;
-            }
-        .stToast {
-            background-color: #e2dadbff;
-            color:#043464;
-            padding: 8px;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+    
+    load_css("style.css")
 
     # Initialize session state for login status
     if "logged_in" not in st.session_state:

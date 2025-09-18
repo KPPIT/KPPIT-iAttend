@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime, timedelta
-from utils import spacing_placeholder
+from utils import spacing_placeholder, load_css
 from db import get_connection
 
 @st.cache_resource
@@ -14,7 +14,6 @@ def show_success_msg(success_msg, staff_id, staff_name, company_name, organizati
     f"Sila lapor diri di kaunter pendaftaran bersama **ID + SNAPSHOT** page ini untuk mengambil **kupon makanan dan cabutan bertuah**. Terima kasih."
 )
 
-    
 # add streamlit dialog
 @st.dialog("Pengesahan Kehadiran")
 
@@ -41,29 +40,8 @@ def confirmation():
 
         with form_area.container(): 
             
-            # Custom CSS to make rectangular boxes
-            st.markdown("""
-                <style>
-                .info-box {
-                    background-color: #f0f2f6;   /* light grey background */
-                    border: 1px solid #ccc;      /* border like text_input */
-                    padding: 8px 12px;           /* inner spacing */
-                    border-radius: 8px;          /* rounded corners */
-                    margin-bottom: 2px;         /* spacing between boxes */
-                    font-weight: bold;           /* make text bold */
-                    color: #000000;              /* black font for contrast */
-                }
-                .stButton>button {
-                    background-color: #4d6d8dff;
-                    color: #fff;
-                    padding: 5px;
-                    cursor: pointer;
-                }
-                .stButton>button:hover {
-                    background-color: #71aae4;
-                }   
-                </style>
-            """, unsafe_allow_html=True)
+            # Call the function to load the CSS file
+            load_css("style.css")
 
             # Now render each info in a styled box
             st.subheader("Staff ID")
@@ -79,7 +57,6 @@ def confirmation():
             st.markdown(f"<div class='info-box'>{organizational_unit}</div>", unsafe_allow_html=True)
 
             spacing_placeholder(1)
-
 
             col1, col2, col3 = st.columns([2, 3, 2])
             with col2:
