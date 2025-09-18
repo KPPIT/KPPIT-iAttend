@@ -1,6 +1,5 @@
 import streamlit as st
 from pathlib import Path
-from PIL import Image
 
 # Function to create spacing
 def spacing_placeholder(lines: int = 1):
@@ -12,7 +11,7 @@ def spacing_placeholder(lines: int = 1):
 def load_image(filename: str):  
         current_dir = Path(__file__).parent   # points to /iAttend
         image_path = current_dir / "images" / filename
-        return Image.open(image_path)
+        return st.image(image_path, width='stretch')
 
 # Function to load and inject CSS
 def load_css(file_name):
