@@ -4,9 +4,8 @@
         width: 50%;
         display: flex;
         justify-content: center;
-        margin-bottom: -35px;   /* Reduce space below image */
-        margin-top: -50px;      /* Reduce space above image */
-    }
+        margin-top: -30px;
+    } 
 /* Style for the button */
     .stButton>button {
         background-color: #4d6d8dff;
@@ -32,12 +31,13 @@
         padding: 8px 10px;
         color: #043464;
         caret-color: #043464;
-    }            
-    .stToast {
+    }     
+    .stTextInput input[type="password"] {
         background-color: #e2dadbff;
-        color:#043464;
-        padding: 8px;
-    }
+        padding: 8px 10px;
+        color: #043464;
+        caret-color: #043464;
+    }       
     .info-box {
         background-color: #f0f2f6;   /* light grey background */
         border: 1px solid #ccc;      /* border like text_input */

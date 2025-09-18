@@ -2,7 +2,10 @@ import streamlit as st
 import pandas as pd
 from db import get_by_query
 from pagar import main
-from utils import spacing_placeholder
+from utils import spacing_placeholder, load_css
+
+# Call the function to load the CSS file
+load_css("style.css")
 
 st.set_page_config(
     page_title="Admin | iAttend",

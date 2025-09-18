@@ -9,9 +9,9 @@ st.set_page_config(page_title="iAttend", page_icon="🌐", layout="centered", in
 load_css("style.css")
 
 # Banner image
-col1, col2, col3 = st.columns([3, 2, 3])
+col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image(load_image('KPPIT.png'))
+    load_image('KPPIT.png')
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")

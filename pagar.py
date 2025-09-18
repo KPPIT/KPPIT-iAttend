@@ -2,6 +2,9 @@ import streamlit as st
 import time
 from utils import load_css
 
+# Call the function to load the CSS file
+load_css("style.css")
+
 # Load user credentials from secrets
 def load_credentials():
     return st.secrets["users"]
@@ -11,8 +14,6 @@ def authenticate(username, password, credentials):
     return credentials.get(username) == password
 
 def main():
-    
-    load_css("style.css")
 
     # Initialize session state for login status
     if "logged_in" not in st.session_state:
