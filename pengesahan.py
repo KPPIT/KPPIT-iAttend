@@ -10,7 +10,7 @@ def show_success_msg(success_msg, staff_id, staff_name, company_name, organizati
     f"**Nama:**\n\n{staff_name if staff_name else '-'}\n\n"
     f"**Staff ID:**\n\n{staff_id}\n\n"
     f"**Department:**\n\n{organizational_unit if organizational_unit else '-'}\n\n"
-    f"**Masa Check-in:**\n\n{timestamp}\n\n"
+    f"**Masa:**\n\n{timestamp}\n\n"
     f"Sila lapor diri di kaunter pendaftaran bersama **ID + SNAPSHOT** page ini untuk mengambil **kupon makanan dan cabutan bertuah**. Terima kasih."
 )
 
@@ -30,7 +30,7 @@ def confirmation():
     # Case 1: Already checked in (previously or session state)
     if attendance == "Yes":
         # Display success message
-        show_success_msg("✅ ANDA TELAH CHECK-IN !", staff_id, staff_name, company_name, organizational_unit, timestamp)
+        show_success_msg("✅ ANDA TELAH DAFTAR !", staff_id, staff_name, company_name, organizational_unit, timestamp)
 
     # Case 2: Not yet checked in → show button
     else:
@@ -99,4 +99,4 @@ def confirmation():
 
                 # Hide the form and show only the success message 
                 form_area.empty()  
-                show_success_msg("✅ CHECK-IN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp)  
+                show_success_msg("✅ PENDAFTARAN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp)  
