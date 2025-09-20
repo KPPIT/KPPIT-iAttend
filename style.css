@@ -1,20 +1,25 @@
-
+/*Background style*/
+ .stApp {
+        background-image: repeating-linear-gradient(45deg,
+        #7985920d,#5a6d800d 10px, transparent 10px,transparent 20px);  
+    }
 /* Centering the image and reducing spacing */
     .stImage {
         width: 50%;
         display: flex;
         justify-content: center;
-        margin-top: -30px;
+        margin-top: -40px;
+        margin-bottom: -20px; 
     } 
 /* Style for the button */
     .stButton>button {
-        background-color: #4d6d8dff;
+        background-color: #537ea8;
         color: #fff;
         padding: 8px;
         cursor: pointer;
     }
     .stButton>button:hover {
-        background-color: #71aae4;
+        background-color: #4d6d8dff;
     }
 /* Style for the notes list */
     .notes-list {
