@@ -19,7 +19,7 @@ def custom_table(header: str, dataframe):
     st.write(f"***Jumlah Carian: {len(dataframe)} ahli***")
     st.dataframe(
         dataframe,
-        column_config={"company_name": None},
+        column_config={"Company": None},
         hide_index=True
     )
 
@@ -29,12 +29,22 @@ if st.session_state.get("logged_in", False):
     data, columns = get_by_query("SELECT * FROM union_member;")
     df = pd.DataFrame(data, columns=columns)
 
-    # --- Stats ---
-    total_attendance = df[df["attendance"] == "Yes"].shape[0]
-    total_members = len(df)
-    percentage_attendance = total_attendance / total_members * 100
+    # Rename columns for better display
+    df.rename(columns={
+        'staff_id': 'Staff ID',
+        'employee_name': 'Nama',
+        'company_name': 'Company',
+        'organizational_unit': 'Department',
+        'attendance': 'Attendance',
+        'checkin_time': 'Masa'
+    }, inplace=True)
 
-    st.header("Senarai Ahli Union")
+    # --- Stats ---
+    total_attendance = df[df["Attendance"] == "Yes"].shape[0]
+    total_members = len(df)
+    percentage_attendance = total_attendance / total_members * 100 if total_members > 0 else 0
+
+    st.header("Senarai Ahli Kesatuan")
     col1, col2, col3 = st.columns(3)
     col1.metric(label="Jumlah Kedatangan", value=total_attendance)
     col2.metric(label="Peratusan Kedatangan", value=f"{percentage_attendance:.2f}%")
@@ -48,13 +58,13 @@ if st.session_state.get("logged_in", False):
     text_search = st.text_input("Carian Nama atau Staff ID", value="")
 
     # filter dataframe using masks
-    m1 = df["staff_id"].astype(str).str.contains(text_search)
-    m2 = df["employee_name"].astype(str).str.contains(text_search, case=False)
-    m3 = df["organizational_unit"].astype(str).str.contains(text_search, case=False)
+    m1 = df["Staff ID"].astype(str).str.contains(text_search)
+    m2 = df["Nama"].astype(str).str.contains(text_search, case=False)
+    m3 = df["Department"].astype(str).str.contains(text_search, case=False)
     df_search = df[m1 | m2 | m3] if text_search else df
 
-    df_search_checkin = df_search[df_search["attendance"] == "Yes"]
-    df_search_non_checkin = df_search[df_search["attendance"] != "Yes"]
+    df_search_checkin = df_search[df_search["Attendance"] == "Yes"]
+    df_search_non_checkin = df_search[df_search["Attendance"] != "Yes"]
 
     col1, col2 = st.columns(2)
     with col1:
