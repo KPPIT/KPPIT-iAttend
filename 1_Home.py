@@ -40,16 +40,14 @@ with col2:
 
         else:
             # --- Check DB for staff ---
-            query = "SELECT staff_id, employee_name, company_name, organizational_unit, attendance, checkin_time FROM union_member WHERE staff_id = %s"
+            query = "SELECT staff_id, name, attendance, checkin_time FROM union_members WHERE staff_id = %s"
             staff, _ = get_by_query(query=query, params=(clean_staff_id,), single_row=True)
 
             if staff:
                 st.session_state["staff_id"] = staff[0]
-                st.session_state["staff_name"] = staff[1]
-                st.session_state["company_name"] = staff[2]
-                st.session_state["organizational_unit"] = staff[3]
-                st.session_state["attendance"] = staff[4]
-                st.session_state["timestamp"] = staff[5].strftime("%Y-%m-%d %H:%M:%S") if staff[5] else None
+                st.session_state["name"] = staff[1]
+                st.session_state["attendance"] = staff[2]
+                st.session_state["timestamp"] = staff[3].strftime("%Y-%m-%d %H:%M:%S") if staff[3] else None
 
                 # Open small dialog to check in / check done check in
                 confirmation()
