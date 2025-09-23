@@ -4,12 +4,11 @@ from utils import spacing_placeholder, load_css
 from db import get_connection
 
 @st.cache_resource
-def show_success_msg(success_msg, staff_id, staff_name, company_name, organizational_unit, timestamp):
+def show_success_msg(success_msg, staff_id, staff_name, timestamp):
     st.success(
     f"{success_msg}\n\n"
     f"**Nama:**\n\n{staff_name if staff_name else '-'}\n\n"
     f"**Staff ID:**\n\n{staff_id}\n\n"
-    f"**Department:**\n\n{organizational_unit if organizational_unit else '-'}\n\n"
     f"**Masa:**\n\n{timestamp}\n\n"
     f"Sila lapor diri di kaunter pendaftaran bersama **ID + SNAPSHOT** page ini untuk mengambil **kupon makanan dan cabutan bertuah**. Terima kasih."
 )
@@ -21,16 +20,14 @@ def confirmation():
 
     # Retrieve data from session_state
     staff_id = st.session_state.get("staff_id")
-    staff_name = st.session_state.get("staff_name")
-    company_name = st.session_state.get("company_name")
-    organizational_unit = st.session_state.get("organizational_unit")
+    staff_name = st.session_state.get("name")
     attendance = st.session_state.get("attendance")
     timestamp = st.session_state.get("timestamp")
 
     # Case 1: Already checked in (previously or session state)
     if attendance == "Yes":
         # Display success message
-        show_success_msg("✅ ANDA TELAH DAFTAR !", staff_id, staff_name, company_name, organizational_unit, timestamp)
+        show_success_msg("✅ ANDA TELAH DAFTAR !", staff_id, staff_name, timestamp)
 
     # Case 2: Not yet checked in → show button
     else:
@@ -49,12 +46,6 @@ def confirmation():
 
             st.subheader("Nama")
             st.markdown(f"<div class='info-box'>{staff_name}</div>", unsafe_allow_html=True)
-
-            st.subheader("Company")
-            st.markdown(f"<div class='info-box'>{company_name}</div>", unsafe_allow_html=True)
-
-            st.subheader("Department")
-            st.markdown(f"<div class='info-box'>{organizational_unit}</div>", unsafe_allow_html=True)
 
             spacing_placeholder(1)
 
@@ -81,7 +72,7 @@ def confirmation():
 
                 # Update attendance in DB
                 cur.execute(
-                    "UPDATE union_member SET attendance = %s, checkin_time = %s WHERE staff_id = %s;",
+                    "UPDATE union_members SET attendance = %s, checkin_time = %s WHERE staff_id = %s;",
                     ("Yes", timestamp, staff_id)
                 )
                 conn.commit()
@@ -99,4 +90,4 @@ def confirmation():
 
                 # Hide the form and show only the success message 
                 form_area.empty()  
-                show_success_msg("✅ PENDAFTARAN BERJAYA !", staff_id, staff_name, company_name, organizational_unit, timestamp)  
+                show_success_msg("✅ PENDAFTARAN BERJAYA !", staff_id, staff_name, timestamp)  

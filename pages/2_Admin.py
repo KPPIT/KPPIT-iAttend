@@ -19,22 +19,19 @@ def custom_table(header: str, dataframe):
     st.write(f"***Jumlah Carian: {len(dataframe)} ahli***")
     st.dataframe(
         dataframe,
-        column_config={"Company": None},
         hide_index=True
     )
 
 if st.session_state.get("logged_in", False):
 
     # Fetch data from DB
-    data, columns = get_by_query("SELECT * FROM union_member;")
+    data, columns = get_by_query("SELECT * FROM union_members;")
     df = pd.DataFrame(data, columns=columns)
 
     # Rename columns for better display
     df.rename(columns={
         'staff_id': 'Staff ID',
-        'employee_name': 'Nama',
-        'company_name': 'Company',
-        'organizational_unit': 'Department',
+        'name': 'Nama',
         'attendance': 'Attendance',
         'checkin_time': 'Masa'
     }, inplace=True)
@@ -60,8 +57,7 @@ if st.session_state.get("logged_in", False):
     # filter dataframe using masks
     m1 = df["Staff ID"].astype(str).str.contains(text_search)
     m2 = df["Nama"].astype(str).str.contains(text_search, case=False)
-    m3 = df["Department"].astype(str).str.contains(text_search, case=False)
-    df_search = df[m1 | m2 | m3] if text_search else df
+    df_search = df[m1 | m2 ] if text_search else df
 
     df_search_checkin = df_search[df_search["Attendance"] == "Yes"]
     df_search_non_checkin = df_search[df_search["Attendance"] != "Yes"]
