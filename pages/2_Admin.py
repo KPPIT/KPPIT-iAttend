@@ -36,6 +36,9 @@ if st.session_state.get("logged_in", False):
         'checkin_time': 'Masa'
     }, inplace=True)
 
+    # Always sort the dataframe by check-in time ascending
+    df.sort_values(by=["Masa", "Staff ID"], ascending=[True, True], inplace=True)
+
     # --- Stats ---
     total_attendance = df[df["Attendance"] == "Yes"].shape[0]
     total_members = len(df)
