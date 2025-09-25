@@ -12,9 +12,9 @@ def spacing_placeholder(lines: int = 1):
 @st.cache_data(ttl=43200) # cache for 12 hour
 def load_image(filename: str):  
         current_dir = Path(__file__).parent   # points to /iAttend
-        # image_path = current_dir / "images" / filename
+        image_path = current_dir / "images" / filename
         # return st.image(image_path)
-        return current_dir / "images" / filename
+        return image_path.read_bytes()
 
 # Function to load and inject CSS
 @st.cache_data(ttl=43200)
