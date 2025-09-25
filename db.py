@@ -11,7 +11,7 @@ def get_connection():
         try:
             db_pool = psycopg2.pool.SimpleConnectionPool(
                 minconn=5,
-                maxconn=10,
+                maxconn=60,
                 host=st.secrets["db"]["host"],
                 dbname=st.secrets["db"]["dbname"],
                 user=st.secrets["db"]["user"],
