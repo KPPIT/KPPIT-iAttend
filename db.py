@@ -4,6 +4,7 @@ from psycopg2 import pool
 
 db_pool = None  # to hold global connection
 
+# cache_resource : suitable for database pools, loaded ML moodels, global resources
 @st.cache_resource # to cache the data connection pool once its deploy
 def get_connection():
     global db_pool

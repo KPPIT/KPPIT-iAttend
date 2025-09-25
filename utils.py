@@ -7,7 +7,8 @@ def spacing_placeholder(lines: int = 1):
         st.write("")
 
 # Function to load images from the /images folder
-@st.cache_resource
+# cache_data : suitable for data processing, API calls, loading CSVs/DataFrames
+@st.cache_data 
 def load_image(filename: str):  
         current_dir = Path(__file__).parent   # points to /iAttend
         image_path = current_dir / "images" / filename
