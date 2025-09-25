@@ -19,7 +19,6 @@ def get_connection():
                 password=st.secrets["db"]["password"],
                 port=st.secrets["db"]["port"]
             )
-            print("Connection pool is created successfully")
 
         except (Exception, psycopg2.DatabaseError) as e:
             print("Failed to create connectioon pool: ", e)
@@ -40,8 +39,6 @@ def get_by_query(query: str, params=None, single_row=False):
         db_pool = get_connection()
         if db_pool is None:
             raise Exception("Database connection pool: Not Available")
-        else:
-            print("Database connection pool: Connected")
 
         conn = db_pool.getconn() # Borrow connection (no need to fetch directly to database)
         cur = conn.cursor()
@@ -65,6 +62,5 @@ def get_by_query(query: str, params=None, single_row=False):
             cur.close()
         if conn:
             db_pool.putconn(conn) # return to connection pool
-            print("Database connection pool: Disconnected")
 
     return data, columns
