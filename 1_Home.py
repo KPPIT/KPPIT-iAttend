@@ -11,7 +11,7 @@ load_css("style.css")
 # Banner image
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image(load_image('KPPIT.webp'), width="stretch", caption=None)
+    st.image(load_image('KPPIT.webp'), width=600, caption=None)
 
 # Page header  
 st.header("Mesyuarat Agung KPPIT Kali ke-31")
